@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block title %}Trending Books - BookGenie{% endblock
+%} {% block content %}
+<div class="container py-5">
+  <h2 class="mb-4 fw-bold text-center">🔥 Top 50 Trending Books</h2>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for book in books %}
+    <!--each book is a dictionary-->
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img
+          src="{{ book['Image-URL-L'] }}"
+          class="card-img-top"
+          alt="{{ book['Book-Title'] }}"
+          onerror="this.onerror=null;"
+        />
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ book['Book-Title'] }}</h5>
+          <p class="card-text text-muted mb-1">
+            <small>by {{ book['Book-Author'] }}</small>
+          </p>
+          <div class="mt-auto d-flex flex-wrap gap-2">
+            <span class="badge bg-warning text-dark"
+              >🔥 Popularity: {{ "%.2f"|format(book['popularity_score'])
+              }}</span
+            >
+            <span class="badge bg-primary"
+              >⭐ Avg: {{ "%.1f"|format(book['avg_rating']) }}</span
+            >
+            <span class="badge bg-success"
+              >{{ book['num_ratings'] }} votes</span
+            >
+            <span class="badge bg-secondary">#{{ loop.index }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
