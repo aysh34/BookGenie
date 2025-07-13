@@ -2,3 +2,4 @@ anaconda_projects
 .ipynb_checkpoints
 anaconda_projects\db
 anaconda_projects\db\project_filebrowser.db
+env
