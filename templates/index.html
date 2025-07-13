@@ -1,0 +1,57 @@
+{% extends 'base.html' %} {% block title %}BookGenie - Home{% endblock %} 
+{%block content %}
+<div class="hero-section text-center py-5">
+  <div class="container">
+    <h1 class="display-4 fw-bold mb-4">Welcome to BookGenie</h1>
+    <p class="lead mb-4">Your AI-powered book recommendation system</p>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <p class="text-muted">
+          Discover your next favorite book with our intelligent recommendation
+          engine. Get personalized suggestions based on your reading preferences
+          and discover new authors and genres.
+        </p>
+      </div>
+    </div>
+    <div class="mt-4">
+      <a href="#" class="btn btn-primary btn-lg me-3">Get Recommendations</a>
+      <a href="#" class="btn btn-outline-secondary btn-lg">Browse Books</a>
+    </div>
+  </div>
+</div>
+
+<div class="features-section py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 text-center mb-4">
+        <div class="feature-icon mb-3">
+          <i class="bi bi-book-half fs-1 text-primary"></i>
+        </div>
+        <h4>Smart Recommendations</h4>
+        <p class="text-muted">
+          AI-powered algorithm analyzes your preferences to suggest books you'll
+          love.
+        </p>
+      </div>
+      <div class="col-md-4 text-center mb-4">
+        <div class="feature-icon mb-3">
+          <i class="bi bi-people-fill fs-1 text-primary"></i>
+        </div>
+        <h4>Community Driven</h4>
+        <p class="text-muted">
+          Benefit from the collective wisdom of our reading community.
+        </p>
+      </div>
+      <div class="col-md-4 text-center mb-4">
+        <div class="feature-icon mb-3">
+          <i class="bi bi-graph-up fs-1 text-primary"></i>
+        </div>
+        <h4>Track Progress</h4>
+        <p class="text-muted">
+          Keep track of your reading journey and discover new patterns.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

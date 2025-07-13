@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-modern shadow-sm">
+  <div class="container-fluid px-4">
+    <a
+      class="navbar-brand d-flex align-items-center gap-2"
+      href="{{ url_for('index') }}"
+    >
+      <i class="bi bi-book-half fs-3 text-primary"></i>
+      <span class="fw-bold fs-4 text-white">BookGenie</span>
+    </a>
+    <button
+      class="navbar-toggler border-0"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{ url_for('index') }}">Home</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Enterprise</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Small Business</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Developers</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+      </ul>
+
+      <form class="d-flex align-items-center" role="search">
+        <input
+          class="form-control me-2 search-input"
+          type="search"
+          placeholder="Search books..."
+          aria-label="Search"
+        />
+        <button class="btn btn-primary search-btn" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
