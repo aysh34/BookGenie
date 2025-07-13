@@ -1,0 +1,97 @@
+{% extends 'base.html' %} {% block title %}About BookGenie{% endblock %} {%
+block content %}
+
+<section class="py-5">
+  <div class="container text-center">
+    <h1 class="fw-bold mb-4">
+      About <span class="text-primary">BookGenie</span>
+    </h1>
+    <p class="lead text-muted mb-4">
+      BookGenie is your AI-powered companion for discovering books you'll love.
+    </p>
+    <p class="text-secondary">
+      Designed as a personalized book discovery engine, BookGenie uses
+      data-driven techniques like popularity-based filtering and collaborative
+      filtering to recommend titles that resonate with individual preferences.
+    </p>
+  </div>
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 text-start">
+        <h4 class="fw-semibold mb-3">Why BookGenie?</h4>
+        <ul class="list-unstyled text-muted">
+          <li>
+            <i class="bi bi-check-circle text-success me-2"></i> Hybrid model:
+            Popularity + Collaborative Filtering
+          </li>
+          <li>
+            <i class="bi bi-check-circle text-success me-2"></i> Discover
+            trending books and reader favorites
+          </li>
+          <li>
+            <i class="bi bi-check-circle text-success me-2"></i> Built with
+            clean UI, user feedback, and error handling
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6 text-start">
+        <h4 class="fw-semibold mb-3">Technologies Used</h4>
+        <ul class="list-unstyled text-muted">
+          <li>
+            <i class="bi bi-code-slash text-info me-2"></i> Python, Flask,
+            Pandas, NumPy, Jinja2
+          </li>
+          <li>
+            <i class="bi bi-diagram-3 text-info me-2"></i> Popularity Ranking,
+            Collaborative Filtering
+          </li>
+          <li>
+            <i class="bi bi-palette text-info me-2"></i> Bootstrap 5, HTML, CSS
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="my-5" />
+
+    <div class="text-start px-3 px-md-5">
+      <h4 class="fw-semibold mb-3">My Development Journey</h4>
+      <p>
+        BookGenie started as a hands-on project to practically apply what I’d
+        learned about recommendation systems and full-stack development. I began
+        by cleaning and preprocessing a real-world book ratings dataset sourced
+        from <strong>Kaggle</strong>, removing duplicates and nulls, and
+        curating it for meaningful input.
+      </p>
+      <p>
+        To surface highly rated and well-reviewed books, I implemented a
+        <strong>popularity-based ranking system</strong> using an IMDb-style
+        weighted average. For personalized suggestions, I developed a
+        <strong>collaborative filtering model</strong> based on user-book
+        interaction similarity, enabling recommendations for users based on the
+        behavior of similar readers.
+      </p>
+      <p>
+        I handled the backend using <code>Flask</code>, managing routes, user
+        input, and recommendation logic. The UI was crafted with
+        <code>Bootstrap 5</code> and custom CSS, prioritizing clarity,
+        responsiveness, and real-app structure. Features like error handling,
+        flash messages, and modular templates were added to make the app robust
+        and user-friendly.
+      </p>
+      <p>
+        Every feature from trending books to recommendation forms was built and
+        validated end-to-end, demonstrating my ability to work across the stack
+        and think in terms of product quality, not just technical correctness.
+      </p>
+      <p class="fw-medium">
+        BookGenie reflects my practical understanding of recommender systems and
+        my ability to build maintainable, user-focused web applications from
+        scratch.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

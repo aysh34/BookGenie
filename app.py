@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from datetime import datetime
 import pickle
 import numpy as np
+from difflib import get_close_matches
+
 
 app = Flask(__name__)
 app.secret_key = "superkey"
@@ -12,6 +14,8 @@ try:
     filtered_books = pickle.load(open("Models/filtered_books.pkl", "rb"))
     similarity = pickle.load(open("Models/similarity.pkl", "rb"))
     final_df = pickle.load(open("Models/final_df.pkl", "rb"))
+    final_df.index = final_df.index.astype(str).str.strip()
+
 except Exception as e:
     print(f"[ERROR] Failed to load models: {e}")
     top_50 = filtered_books = similarity = final_df = None
@@ -50,40 +54,40 @@ def recommend_books():
     user_input = request.form.get("user_input")
 
     if not user_input:
-        flash("Please enter a book title.", "warning")
+        flash("Please enter a book name to get recommendations.", "warning")
         return redirect(url_for("recommend"))
 
-    if final_df is None or user_input not in final_df.index:
-        flash(f"'{user_input}' not found. Try another title.", "warning")
+    if final_df is None or similarity is None or filtered_books is None:
+        flash("Recommendation system is currently unavailable.", "danger")
         return redirect(url_for("recommend"))
+
+    # === Fuzzy Matching ===
+    all_titles = final_df.index.tolist()
+    lower_titles = [title.lower() for title in all_titles]
+    matches = get_close_matches(
+        user_input.strip().lower(), lower_titles, n=1, cutoff=0.7
+    )
+
+    if not matches:
+        flash(f"'{user_input}' not found. Try a different title.", "warning")
+        return render_template("recommend.html", suggestions=all_titles[:10])
+
+    # Get original casing of matched title
+    matched_index = lower_titles.index(matches[0])
+    matched_title = all_titles[matched_index]
 
     try:
-        if similarity is None:
-            flash(
-                "Recommendation system is currently unavailable. Please try again later.",
-                "danger",
-            )
-            return redirect(url_for("recommend"))
-
-        index = int(np.where(final_df.index == user_input)[0][0])
+        index = int(np.where(final_df.index == matched_title)[0][0])
         sorted_similarity_scores = sorted(
             list(enumerate(similarity[index])), key=lambda x: x[1], reverse=True
-        )[1:6]
+        )[1:5]
 
         recommendations = []
-
-        if filtered_books is None:
-            flash(
-                "Recommendation system is currently unavailable. Please try again later.",
-                "danger",
-            )
-            return redirect(url_for("recommend"))
 
         for i in sorted_similarity_scores:
             temp_df = filtered_books[
                 filtered_books["Book-Title"] == final_df.index[i[0]]
-            ]
-            temp_df = temp_df.drop_duplicates("Book-Title")
+            ].drop_duplicates("Book-Title")
 
             if not temp_df.empty:
                 recommendations.append(
