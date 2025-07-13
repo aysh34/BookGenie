@@ -8,7 +8,7 @@ from difflib import get_close_matches
 app = Flask(__name__)
 app.secret_key = "superkey"
 
-# ========== Load Models Safely ==========
+# ========== Load Models ============
 try:
     top_50 = pickle.load(open("Models/top_50.pkl", "rb"))
     filtered_books = pickle.load(open("Models/filtered_books.pkl", "rb"))
