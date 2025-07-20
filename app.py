@@ -1,29 +1,39 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from datetime import datetime
 import pickle
-import numpy as np
-from difflib import get_close_matches
 import os
-
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "superkey")
 
-# ========== Load Models ============
-try:
-    # Use absolute paths for model loading
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    models_dir = os.path.join(base_dir, "Models")
-    
-    top_50 = pickle.load(open(os.path.join(models_dir, "top_50.pkl"), "rb"))
-    filtered_books = pickle.load(open(os.path.join(models_dir, "filtered_books.pkl"), "rb"))
-    similarity = pickle.load(open(os.path.join(models_dir, "similarity.pkl"), "rb"))
-    final_df = pickle.load(open(os.path.join(models_dir, "final_df.pkl"), "rb"))
-    final_df.index = final_df.index.astype(str).str.strip()
+# Global variables for models
+top_50 = None
+filtered_books = None
+similarity = None
+final_df = None
 
-except Exception as e:
-    print(f"[ERROR] Failed to load models: {e}")
-    top_50 = filtered_books = similarity = final_df = None
+def load_models():
+    """Load models on first request"""
+    global top_50, filtered_books, similarity, final_df
+    
+    if top_50 is not None:
+        return True
+        
+    try:
+        import numpy as np
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        models_dir = os.path.join(base_dir, "Models")
+        
+        top_50 = pickle.load(open(os.path.join(models_dir, "top_50.pkl"), "rb"))
+        filtered_books = pickle.load(open(os.path.join(models_dir, "filtered_books.pkl"), "rb"))
+        similarity = pickle.load(open(os.path.join(models_dir, "similarity.pkl"), "rb"))
+        final_df = pickle.load(open(os.path.join(models_dir, "final_df.pkl"), "rb"))
+        final_df.index = final_df.index.astype(str).str.strip()
+        
+        return True
+    except Exception as e:
+        print(f"[ERROR] Failed to load models: {e}")
+        return False
 
 
 # ========== Context Processor ==========
@@ -42,7 +52,7 @@ def index():
 
 @app.route("/trending")
 def trending():
-    if top_50 is None:
+    if not load_models():
         flash("Error loading trending books. Please try again later.", "danger")
         return redirect(url_for("index"))
     books = top_50.to_dict(orient="records")
@@ -62,9 +72,13 @@ def recommend_books():
         flash("Please enter a book name to get recommendations.", "warning")
         return redirect(url_for("recommend"))
 
-    if final_df is None or similarity is None or filtered_books is None:
+    if not load_models():
         flash("Recommendation system is currently unavailable.", "danger")
         return redirect(url_for("recommend"))
+
+    # Import when needed
+    import numpy as np
+    from difflib import get_close_matches
 
     # === Fuzzy Matching ===
     all_titles = final_df.index.tolist()
