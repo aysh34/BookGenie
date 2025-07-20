@@ -3,17 +3,22 @@ from datetime import datetime
 import pickle
 import numpy as np
 from difflib import get_close_matches
+import os
 
 
 app = Flask(__name__)
-app.secret_key = "superkey"
+app.secret_key = os.environ.get("SECRET_KEY", "superkey")
 
 # ========== Load Models ============
 try:
-    top_50 = pickle.load(open("Models/top_50.pkl", "rb"))
-    filtered_books = pickle.load(open("Models/filtered_books.pkl", "rb"))
-    similarity = pickle.load(open("Models/similarity.pkl", "rb"))
-    final_df = pickle.load(open("Models/final_df.pkl", "rb"))
+    # Use absolute paths for model loading
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    models_dir = os.path.join(base_dir, "Models")
+    
+    top_50 = pickle.load(open(os.path.join(models_dir, "top_50.pkl"), "rb"))
+    filtered_books = pickle.load(open(os.path.join(models_dir, "filtered_books.pkl"), "rb"))
+    similarity = pickle.load(open(os.path.join(models_dir, "similarity.pkl"), "rb"))
+    final_df = pickle.load(open(os.path.join(models_dir, "final_df.pkl"), "rb"))
     final_df.index = final_df.index.astype(str).str.strip()
 
 except Exception as e:
