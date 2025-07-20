@@ -48,11 +48,40 @@ def inject_year():
 
 # ========== Routes ==========
 
+@app.route("/health")
+def health():
+    """Health check endpoint"""
+    return {"status": "healthy", "message": "BookGenie is running!"}, 200
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    try:
+        return render_template("index.html")
+    except Exception as e:
+        return f"Error loading index page: {str(e)}", 500
 
+
+@app.route("/debug")
+def debug():
+    """Debug endpoint to check file structure"""
+    import os
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    debug_info = {
+        "base_dir": base_dir,
+        "files_in_base": os.listdir(base_dir) if os.path.exists(base_dir) else "Base dir not found",
+        "templates_exists": os.path.exists(os.path.join(base_dir, "templates")),
+        "models_exists": os.path.exists(os.path.join(base_dir, "Models")),
+        "static_exists": os.path.exists(os.path.join(base_dir, "static"))
+    }
+    
+    if os.path.exists(os.path.join(base_dir, "templates")):
+        debug_info["templates_files"] = os.listdir(os.path.join(base_dir, "templates"))
+    
+    if os.path.exists(os.path.join(base_dir, "Models")):
+        debug_info["model_files"] = os.listdir(os.path.join(base_dir, "Models"))
+    
+    return debug_info, 200
 
 @app.route("/trending")
 def trending():
