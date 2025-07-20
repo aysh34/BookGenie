@@ -59,10 +59,12 @@ BookGenie is a robust, machine learning-powered application that delivers person
 ### Deploy on Vercel
 
 1. **Prerequisites:**
+
    - Ensure your code is pushed to a GitHub repository
    - Sign up for a free account at [vercel.com](https://vercel.com)
 
 2. **Deploy:**
+
    - Import your GitHub repository on Vercel
    - Select "Other" as framework preset
    - Deploy with default settings
@@ -74,6 +76,7 @@ BookGenie is a robust, machine learning-powered application that delivers person
 ### Deploy on Heroku
 
 1. **Install Heroku CLI and login:**
+
    ```bash
    heroku login
    ```
