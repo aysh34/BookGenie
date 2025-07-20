@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from datetime import datetime
 import pickle
 import os
+import numpy as np
+from difflib import get_close_matches
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "superkey")
@@ -20,7 +22,6 @@ def load_models():
         return True
         
     try:
-        import numpy as np
         base_dir = os.path.dirname(os.path.abspath(__file__))
         models_dir = os.path.join(base_dir, "Models")
         
@@ -55,6 +56,12 @@ def trending():
     if not load_models():
         flash("Error loading trending books. Please try again later.", "danger")
         return redirect(url_for("index"))
+    
+    global top_50
+    if top_50 is None:
+        flash("Error loading trending books. Please try again later.", "danger")
+        return redirect(url_for("index"))
+        
     books = top_50.to_dict(orient="records")
     return render_template("trending.html", books=books)
 
@@ -76,9 +83,12 @@ def recommend_books():
         flash("Recommendation system is currently unavailable.", "danger")
         return redirect(url_for("recommend"))
 
-    # Import when needed
-    import numpy as np
-    from difflib import get_close_matches
+    # At this point, models are loaded and not None
+    global final_df, similarity, filtered_books
+    
+    if final_df is None or similarity is None or filtered_books is None:
+        flash("Recommendation system is currently unavailable.", "danger")
+        return redirect(url_for("recommend"))
 
     # === Fuzzy Matching ===
     all_titles = final_df.index.tolist()
