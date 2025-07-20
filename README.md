@@ -54,6 +54,38 @@ BookGenie is a robust, machine learning-powered application that delivers person
 3. **Access the dashboard:**
    - Open your browser and navigate to `http://localhost:5000`.
 
+## Deployment
+
+### Deploy on Vercel
+
+1. **Prerequisites:**
+   - Ensure your code is pushed to a GitHub repository
+   - Sign up for a free account at [vercel.com](https://vercel.com)
+
+2. **Deploy:**
+   - Import your GitHub repository on Vercel
+   - Select "Other" as framework preset
+   - Deploy with default settings
+   - Vercel will automatically detect the configuration from `vercel.json`
+
+3. **Environment Variables (Optional):**
+   - Set `SECRET_KEY` in Vercel's environment variables for enhanced security
+
+### Deploy on Heroku
+
+1. **Install Heroku CLI and login:**
+   ```bash
+   heroku login
+   ```
+
+2. **Create and deploy:**
+   ```bash
+   heroku create your-app-name
+   git push heroku main
+   ```
+
+The `Procfile` is already configured for Heroku deployment.
+
 ## Project Structure
 
 ```
