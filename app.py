@@ -52,7 +52,10 @@ def inject_year():
 @app.route("/test")
 def test():
     """Simple test endpoint"""
-    return "<h1>BookGenie Test Page</h1><p>If you see this, the Flask app is working!</p>"
+    return (
+        "<h1>BookGenie Test Page</h1><p>If you see this, the Flask app is working!</p>"
+    )
+
 
 @app.route("/health")
 def health():
