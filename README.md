@@ -91,8 +91,6 @@ BookGenie/
 │   └── trending.html   # Trending books page
 ├── app.py              # Main Flask application
 ├── requirements.txt    # Python dependencies
-├── Procfile           # Heroku deployment configuration
-├── vercel.json        # Vercel deployment configuration
 └── README.md          # Project documentation
 ```
 
