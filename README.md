@@ -6,6 +6,7 @@
 [![License](https://img.shields.io/badge/License-MIT-informational)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Active-success)]()
 
+![](https://github.com/aysh34/BookGenie/blob/main/BookGenie.png)
 ## Overview
 
 BookGenie is an intelligent book recommendation platform that helps readers discover their next favorite book through advanced machine learning algorithms. The application combines collaborative filtering and popularity-based recommendation systems to provide personalized book suggestions based on user preferences and reading patterns.
